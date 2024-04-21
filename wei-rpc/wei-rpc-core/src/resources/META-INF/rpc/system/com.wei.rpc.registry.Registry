@@ -1,0 +1,1 @@
+etcd=com.wei.rpc.registry.EtcdRegistry

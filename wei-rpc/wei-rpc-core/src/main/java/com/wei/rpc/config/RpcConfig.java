@@ -1,5 +1,6 @@
 package com.wei.rpc.config;
 
+import com.wei.rpc.constant.SerializerConstatnt;
 import lombok.Data;
 
 /**
@@ -16,4 +17,10 @@ public class RpcConfig {
     private String serverHost = "localhost";
     //端口号
     private Integer serverPort = 8080;
+
+    //序列化器
+    private String serializer = SerializerConstatnt.JDK;
+
+    //注册中心的配置
+    private RegistryConfig registryConfig = new RegistryConfig();
 }

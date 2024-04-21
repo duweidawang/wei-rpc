@@ -1,10 +1,12 @@
 package com.wei.rpc.server;
 
+import com.wei.rpc.config.RpcApplication;
 import com.wei.rpc.model.RpcRequest;
 import com.wei.rpc.model.RpcResponse;
 import com.wei.rpc.registry.LocalRegistry;
 import com.wei.rpc.serializer.JdkSerializer;
 import com.wei.rpc.serializer.Serializer;
+import com.wei.rpc.serializer.SerializerFactory;
 import io.vertx.core.Handler;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpServerRequest;
@@ -19,7 +21,9 @@ public class HttpServerHandler implements Handler<HttpServerRequest> {
 
     @Override
     public void handle(HttpServerRequest httpServerRequest) {
-        final Serializer serializer = new JdkSerializer();
+//        final Serializer serializer = new JdkSerializer();
+        //读取配置中指定的序列化器
+        final Serializer serializer = SerializerFactory.getSrializer(RpcApplication.getRpcConfig().getSerializer());
         httpServerRequest.bodyHandler(body ->{
             byte[] aByte = body.getBytes();
             RpcRequest rpcRequest = null;
@@ -41,7 +45,9 @@ public class HttpServerHandler implements Handler<HttpServerRequest> {
             //如果rpcRequest不为null，即请求有具体数据，需要分发调用
             //获得请求方法
             String methodName = rpcRequest.getMethodName();
+
             Class<?> aClass = LocalRegistry.get(rpcRequest.getServiceName());
+
             Method method = aClass.getMethod(methodName,rpcRequest.getRequestParamTypes());
             //反射调用具体方法后获得结果
             Object invoke = method.invoke(aClass.newInstance(), rpcRequest.getArgs());
