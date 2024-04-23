@@ -1,5 +1,4 @@
 package com.wei.provider;
-
 import com.wei.common.service.UserService;
 import com.wei.rpc.config.RegistryConfig;
 import com.wei.rpc.config.RpcApplication;
@@ -7,12 +6,8 @@ import com.wei.rpc.config.RpcConfig;
 import com.wei.rpc.model.ServiceMetaInfo;
 import com.wei.rpc.registry.Registry;
 import com.wei.rpc.registry.RegistryFactory;
-import com.wei.rpc.serializer.SerializerFactory;
-import com.wei.rpc.server.VertxHttpServer;
 import com.wei.rpc.registry.LocalRegistry;
-import com.wei.rpc.spi.SpiLoader;
-
-import java.util.Map;
+import com.wei.rpc.server.tcp.VertxTcpServer;
 
 public class EasyProviderExample {
     public static void main(String[] args) {
@@ -21,7 +16,6 @@ public class EasyProviderExample {
         //看出，注册上去的服务名字就是类名
         String serviceName = UserService.class.getName();
         LocalRegistry.register(serviceName,UserServiceImpl.class);
-
 
         //注册服务到注册中心
         RpcConfig rpcConfig = RpcApplication.getRpcConfig();
@@ -44,13 +38,18 @@ public class EasyProviderExample {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //改为启动tcp服务器
+        VertxTcpServer vertxTcpServer = new VertxTcpServer();
+        vertxTcpServer.doStart(RpcApplication.getRpcConfig().getServerPort());
+
+
         //将提供的服务提交到本地注册中心
 //        LocalRegistry.register(UserService.class.getName(),UserServiceImpl.class);
-        //创建一个web服务器，启动以后监听8080端口，等待请求
-        VertxHttpServer vertxHttpServer = new VertxHttpServer();
-        //在配置中获取端口号
-        SerializerFactory serializerFactory = new SerializerFactory();
-        Map<String, Map<String, Class<?>>> loaderMap = SpiLoader.loaderMap;
-        vertxHttpServer.doStart(RpcApplication.getRpcConfig().getServerPort());
+//        //创建一个web服务器，启动以后监听8080端口，等待请求
+//        VertxHttpServer vertxHttpServer = new VertxHttpServer();
+//        //在配置中获取端口号
+//        SerializerFactory serializerFactory = new SerializerFactory();
+//        Map<String, Map<String, Class<?>>> loaderMap = SpiLoader.loaderMap;
+//        vertxHttpServer.doStart(RpcApplication.getRpcConfig().getServerPort());
     }
 }

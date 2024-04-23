@@ -8,7 +8,6 @@ import com.wei.rpc.proxy.ServiceProxyFactory;
 
 public class EasyConsumerExample {
     public static void main(String[] args) {
-        for(int i =0;i<4;i++) {
 
             UserService userService = ServiceProxyFactory.getProxy(UserService.class);
             User user = new User();
@@ -21,16 +20,13 @@ public class EasyConsumerExample {
             }
             RpcConfig rpcConfig = RpcApplication.getRpcConfig();
             System.out.println(rpcConfig);
-            if(i==1){
-                try {
-                    Thread.sleep(10000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-
-
-        }
+//            if(i==1){
+//                try {
+//                    Thread.sleep(10000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
 
     }
 }
