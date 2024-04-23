@@ -1,0 +1,3 @@
+JsonSerializer=com.wei.rpc.serializer.JsonSerializer
+HessionSerializer=com.wei.rpc.serializer.HessionSerializer
+JdkSerializer=com.wei.rpc.serializer.JdkSerializer

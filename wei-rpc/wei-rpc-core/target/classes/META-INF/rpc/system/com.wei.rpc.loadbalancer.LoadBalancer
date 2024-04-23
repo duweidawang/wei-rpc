@@ -1,0 +1,3 @@
+roundRobin=com.wei.rpc.loadbalancer.RoundRobinLoadBalancer
+random=com.wei.rpc.loadbalancer.RandomLoadBalancer
+consistentHash=com.wei.rpc.loadbalancer.ConsistentHashLoadBalancer

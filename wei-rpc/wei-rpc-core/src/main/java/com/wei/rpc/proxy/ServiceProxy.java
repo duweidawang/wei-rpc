@@ -1,11 +1,18 @@
 package com.wei.rpc.proxy;
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.lang.hash.Hash;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.wei.rpc.config.RpcApplication;
 import com.wei.rpc.config.RpcConfig;
 import com.wei.rpc.constant.RpcConstant;
+import com.wei.rpc.fault.retry.RetryStrategy;
+import com.wei.rpc.fault.retry.RetryStrategyFactory;
+import com.wei.rpc.fault.tolerant.TolerantStrategy;
+import com.wei.rpc.fault.tolerant.TolerantStrategyFactory;
+import com.wei.rpc.loadbalancer.LoadBalancer;
+import com.wei.rpc.loadbalancer.LoadBalancerFactory;
 import com.wei.rpc.model.RpcRequest;
 import com.wei.rpc.model.RpcResponse;
 import com.wei.rpc.model.ServiceMetaInfo;
@@ -17,6 +24,7 @@ import com.wei.rpc.serializer.SerializerFactory;
 import com.wei.rpc.server.tcp.VertxTcpClient;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -50,9 +58,28 @@ public class ServiceProxy implements InvocationHandler {
                 throw new RuntimeException("暂无服务地址");
             }
             //todo获得的注册中心的服务 包括serviceName serviceVersion 对应服务的ip 加 端口
-            ServiceMetaInfo serviceMetaInfo1 = serviceMetaInfos.get(0);
-            //通过tcp请求客户端发起请求
-            RpcResponse response = VertxTcpClient.doRequest(rpcRequest, serviceMetaInfo1);
+//            ServiceMetaInfo serviceMetaInfo1 = serviceMetaInfos.get(0);
+            //改为调用负载均衡器获取一个节点
+            LoadBalancer loadBalancer = LoadBalancerFactory.getInstance(rpcConfig.getLoadBalancer());
+            HashMap<String, Object> requestParams = new HashMap<>();
+            requestParams.put("methodName",rpcRequest.getMethodName());
+            ServiceMetaInfo select = loadBalancer.select(requestParams, serviceMetaInfos);
+
+
+            //引入重试机制
+            RetryStrategy retryStrategy = RetryStrategyFactory.getInstance(rpcConfig.getRetryStrategy());
+            RpcResponse response;
+            try {
+
+                 response = retryStrategy.doRetry(() -> {
+                    //通过tcp请求客户端发起请求  也是如果出现错误需要重试的代码
+                    return VertxTcpClient.doRequest(rpcRequest, select);
+                });
+            }catch (Exception e){
+                TolerantStrategy instance = TolerantStrategyFactory.getInstance(rpcConfig.getTolerantStrategy());
+                response = instance.doTolerant(null, e);
+            }
+
             return response.getData();
 
 

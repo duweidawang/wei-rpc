@@ -7,6 +7,7 @@ import com.wei.rpc.serializer.SerializerFactory;
 import io.vertx.core.buffer.Buffer;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 
 /**
  * 解码器              在tcp中传输的是buffer   需要将buffer转化为 具体的请求  request或者 response 响应对象
@@ -14,6 +15,7 @@ import java.io.IOException;
 public class ProtocolMessageDecoder {
 
     public static ProtocolMessage<?> decode(Buffer buffer) throws IOException {
+
         // 分别从指定位置读出 Buffer
         ProtocolMessage.Header header = new ProtocolMessage.Header();
         byte magic = buffer.getByte(0);

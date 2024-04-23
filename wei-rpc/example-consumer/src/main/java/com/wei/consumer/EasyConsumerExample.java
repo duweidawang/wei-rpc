@@ -2,12 +2,14 @@ package com.wei.consumer;
 
 import com.wei.common.model.User;
 import com.wei.common.service.UserService;
+import com.wei.rpc.bootstrap.ConsumerBootstrap;
 import com.wei.rpc.config.RpcApplication;
 import com.wei.rpc.config.RpcConfig;
 import com.wei.rpc.proxy.ServiceProxyFactory;
 
 public class EasyConsumerExample {
     public static void main(String[] args) {
+        ConsumerBootstrap.init();
 
             UserService userService = ServiceProxyFactory.getProxy(UserService.class);
             User user = new User();

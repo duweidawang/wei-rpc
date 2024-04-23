@@ -13,6 +13,7 @@
         <module>example-consumer</module>
         <module>example-provider</module>
         <module>wei-rpc-easy</module>
+        <module>wei-rpc-core</module>
     </modules>
 
     <properties>

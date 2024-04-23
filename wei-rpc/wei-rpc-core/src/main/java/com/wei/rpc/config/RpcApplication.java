@@ -9,6 +9,7 @@ import java.io.IOException;
 public class RpcApplication {
 
     private static volatile RpcConfig rpcConfig;
+    //配置文件的前缀
     private static final  String rpcPrefix = "wei-rpc";
 
     public static void init(){

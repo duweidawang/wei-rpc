@@ -63,6 +63,7 @@ public class EtcdRegistry implements Registry {
     @Override
     public void init(RegistryConfig registryConfig) {
         //这个时间表示客户端在连接 etcd 服务器时等待的最长时间。如果在此时间内无法建立连接，将会抛出连接超时的异常
+        //getAddress 表名注册中心的地址，为了建立连接
         client = Client.builder().endpoints(registryConfig.getAddress()).connectTimeout(Duration.ofMillis((registryConfig.getTimeOut()))).build();
         kvClient = client.getKVClient();
 //        heartBeat();

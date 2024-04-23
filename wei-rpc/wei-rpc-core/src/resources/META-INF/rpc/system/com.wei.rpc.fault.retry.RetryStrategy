@@ -1,0 +1,2 @@
+no=com.wei.rpc.fault.retry.NoRetryStrategy
+fixedInterval=com.wei.rpc.fault.retry.FixedIntervalRetryStrategy

@@ -19,8 +19,6 @@ public class ProtocolMessage<T> {
      */
     private T body;
 
-
-
     @Data
     public static class Header{
         /**
@@ -53,8 +51,6 @@ public class ProtocolMessage<T> {
          * 消息体长度
          */
         private int bodyLength;
-
-
 
 
     }
