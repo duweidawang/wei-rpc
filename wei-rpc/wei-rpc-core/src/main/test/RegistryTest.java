@@ -14,6 +14,10 @@ import com.wei.rpc.protocol.*;
 import com.wei.rpc.registry.EtcdRegistry;
 import com.wei.rpc.registry.Registry;
 
+import com.wei.rpc.serializer.HessionSerializer;
+import com.wei.rpc.serializer.JdkSerializer;
+import com.wei.rpc.serializer.JsonSerializer;
+import com.wei.rpc.serializer.KryoSerializer;
 import io.vertx.core.buffer.Buffer;
 import org.junit.Before;
 import org.junit.Test;
@@ -156,7 +160,57 @@ public class RegistryTest {
             throw new Exception("模拟重试");
         });
         System.out.println(response);
+    }
 
+
+    @Test
+    public void testSerializer() throws IOException {
+        JsonSerializer jsonSerializer = new JsonSerializer();
+        KryoSerializer kryoSerializer = new KryoSerializer();
+        JdkSerializer jdkSerializer = new JdkSerializer();
+        HessionSerializer hessionSerializer = new HessionSerializer();
+
+        String name ="1111111111111111sdfafsewqrqsadfqwerasdfqwer";
+        byte[] serialize = jsonSerializer.serialize(name);
+        byte[] serialize1 = kryoSerializer.serialize(name);
+        byte[] serialize2 = jdkSerializer.serialize(name);
+        byte[] serialize3 = hessionSerializer.serialize(name);
+        System.out.println("json length= "+serialize.length);
+        System.out.println("kryo length = "+serialize1.length);
+        System.out.println("jdk length = "+serialize2.length);
+        System.out.println("hession length = "+serialize3.length);
+
+        long l = System.currentTimeMillis();
+        for(int i=0;i<1000;i++){
+            byte[] serialize4 = jsonSerializer.serialize(name);
+            jsonSerializer.deserializer(serialize4,String.class);
+        }
+        long l1 = System.currentTimeMillis();
+        System.out.println("json "+(l1-l));
+
+        long l2 = System.currentTimeMillis();
+        for(int i=0;i<1000;i++){
+            byte[] serialize4 = kryoSerializer.serialize(name);
+            kryoSerializer.deserializer(serialize4,String.class);
+        }
+        long l3 = System.currentTimeMillis();
+        System.out.println("kryo "+(l3-l2));
+
+        long l4 = System.currentTimeMillis();
+        for(int i=0;i<1000;i++){
+            byte[] serialize4 = jdkSerializer.serialize(name);
+            jdkSerializer.deserializer(serialize4,String.class);
+        }
+        long l5 = System.currentTimeMillis();
+        System.out.println("jdk "+(l5-l4));
+
+        long l6 = System.currentTimeMillis();
+        for(int i=0;i<1000;i++){
+            byte[] serialize4 = hessionSerializer.serialize(name);
+            hessionSerializer.deserializer(serialize4,String.class);
+        }
+        long l7 = System.currentTimeMillis();
+        System.out.println("hession "+(l7-l6));
 
     }
 

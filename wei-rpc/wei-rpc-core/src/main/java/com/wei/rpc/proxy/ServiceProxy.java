@@ -46,9 +46,8 @@ public class ServiceProxy implements InvocationHandler {
             //5 获取配置的rpcConfig  rpc配置对象 对象包括名称，版本，rpc服务启动的ip，端口，账号，密码，序列化器，注册中心的配置
             RpcConfig rpcConfig = RpcApplication.getRpcConfig();
 
-            //6根据上面配置的rpcConfig中的注册中心的配置，加载对应的注册注册中心，实例化一个注册中心对象
+            //6获取加载好的注册中心对象
             Registry registry = RegistryFactory.getInstance(rpcConfig.getRegistryConfig().getRegistry());
-
             //构建服务发现的key，用来从注册中心发现并获取服务。key是由serviceName 加 版本号来构建的（提供者以相同的key存储服务到注册中心）
             ServiceMetaInfo serviceMetaInfo = new ServiceMetaInfo();
             serviceMetaInfo.setServiceVersion(RpcConstant.DEFAULT_SERVICE_VERSION);
