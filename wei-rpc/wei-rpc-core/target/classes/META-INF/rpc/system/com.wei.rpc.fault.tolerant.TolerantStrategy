@@ -1,0 +1,3 @@
+failBack=com.wei.rpc.fault.tolerant.FailBackTolerantStrategy
+failFast=com.wei.rpc.fault.tolerant.FailFastTolerantStrategy
+failSafe=com.wei.rpc.fault.tolerant.FailSafeTolerantStrategy

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/wei-rpc/pom.xml" />
+        <option value="$PROJECT_DIR$/wei-rpc/wei-rpc-core/pom.xml" />
+        <option value="$PROJECT_DIR$/wei-rpc/testHttpandTcp/pom.xml" />
+        <option value="$PROJECT_DIR$/du-rpc-spring-boot-starter/pom.xml" />
+        <option value="$PROJECT_DIR$/annotationconsumer/pom.xml" />
+        <option value="$PROJECT_DIR$/providerannotation/pom.xml" />
+        <option value="$PROJECT_DIR$/wei-rpc/example-provider2/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="openjdk-18" project-jdk-type="JavaSDK" />
+</project>

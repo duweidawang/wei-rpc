@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/annotationconsumer/annotationconsumer.iml" filepath="$PROJECT_DIR$/annotationconsumer/annotationconsumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/du-rpc-spring-boot-starter/du-rpc-spring-boot-starter.iml" filepath="$PROJECT_DIR$/du-rpc-spring-boot-starter/du-rpc-spring-boot-starter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wei-rpc/example-common/example-common.iml" filepath="$PROJECT_DIR$/wei-rpc/example-common/example-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wei-rpc/example-consumer/example-consumer.iml" filepath="$PROJECT_DIR$/wei-rpc/example-consumer/example-consumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wei-rpc/testHttpandTcp/example-consumer (1) (org.springframework.boot).iml" filepath="$PROJECT_DIR$/wei-rpc/testHttpandTcp/example-consumer (1) (org.springframework.boot).iml" />
+      <module fileurl="file://$PROJECT_DIR$/wei-rpc/example-provider/example-provider.iml" filepath="$PROJECT_DIR$/wei-rpc/example-provider/example-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wei-rpc/example-provider2/example-provider (1).iml" filepath="$PROJECT_DIR$/wei-rpc/example-provider2/example-provider (1).iml" />
+      <module fileurl="file://$PROJECT_DIR$/providerannotation/providerannotation.iml" filepath="$PROJECT_DIR$/providerannotation/providerannotation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wei-rpc/wei-rpc.iml" filepath="$PROJECT_DIR$/wei-rpc/wei-rpc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wei-rpc/wei-rpc-core/wei-rpc-core.iml" filepath="$PROJECT_DIR$/wei-rpc/wei-rpc-core/wei-rpc-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wei-rpc/wei-rpc-easy/wei-rpc-easy.iml" filepath="$PROJECT_DIR$/wei-rpc/wei-rpc-easy/wei-rpc-easy.iml" />
+    </modules>
+  </component>
+</project>
